@@ -21,9 +21,10 @@ namespace BimsyncBCF.Services
             client.BaseAddress = new Uri("https://bcf.bimsync.com/bcf/beta/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "jQg3g5knpDCjair");
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         }
 
-        public async Task<List<IssueBoard>> GetIssueBoards(string bimsync_project_id)
+        public async Task<List<IssueBoard>> GetIssueBoardsAsync(string bimsync_project_id)
         {
             List<IssueBoard> issueBoards = new List<IssueBoard>();
             // string path = String.Format("projects", bimsync_project_id);
@@ -36,7 +37,7 @@ namespace BimsyncBCF.Services
             return issueBoards;
         }
 
-        public async Task<List<Topic>> GetTopics(string project_id)
+        public async Task<List<Topic>> GetTopicsAsync(string project_id)
         {
             List<Topic> topics = new List<Topic>();
             string path = String.Format("projects/{0}/topics", project_id);
