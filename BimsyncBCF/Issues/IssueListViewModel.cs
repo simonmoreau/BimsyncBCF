@@ -10,7 +10,7 @@ using BimsyncBCF.Models.BCF;
 
 namespace BimsyncBCF.Issues
 {
-    public class IssueListViewModel : INotifyPropertyChanged
+    public class IssueListViewModel : BindableBase
     {
         private BimsyncBCFService _BCFService = new BimsyncBCFService();
         private ObservableCollection<Topic> _issues;
@@ -30,20 +30,9 @@ namespace BimsyncBCF.Issues
 
         public ObservableCollection<Topic> Issues
         {
-            get
-            {
-                return _issues;
-            }
-            set
-            {
-                if (_issues != value)
-                {
-                    _issues = value;
-                    PropertyChanged(this, new PropertyChangedEventArgs("Issues"));
-                }
-            }
+            get { return _issues; }
+            set { SetProperty(ref _issues, value); }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
     }
 }

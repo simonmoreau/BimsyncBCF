@@ -7,7 +7,40 @@
         xmlns:local="clr-namespace:BimsyncBCF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <local:MainWindowsViewModel></local:MainWindowsViewModel>
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type Issues:IssueListViewModel}">
+            <Issues:IssueListView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type Issues:IssueDetailsViewModel}">
+            <Issues:IssueDetailsView />
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
-        <Issues:IssueListView></Issues:IssueListView>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid x:Name="NavBar">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Content="IssueList"
+                    Command="{Binding NavCommand}"
+                    CommandParameter="issueList"
+                    Grid.Column="0" />
+            <Button Content="Issue Details"
+                    Command="{Binding NavCommand}"
+                    CommandParameter="issueDetails"
+                    Grid.Column="2" />
+        </Grid>
+        <Grid x:Name="MainContent"
+              Grid.Row="1">
+            <ContentControl Content="{Binding CurrentViewModel}" />
+        </Grid>
     </Grid>
 </Window>
