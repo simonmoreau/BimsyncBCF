@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BimsyncBCF.Models.BCF;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,8 @@ namespace BimsyncBCF
         public MainWindowsViewModel()
         {
             NavCommand = new RelayCommand<string>(OnNav);
+            CurrentViewModel = _issueListViewModel;
+            _issueListViewModel.TopicSelected += NavToDetailsView;
         }
 
         public BindableBase CurrentViewModel
@@ -38,6 +41,12 @@ namespace BimsyncBCF
                     CurrentViewModel = _issueDetailsViewModel;
                     break;
             }
+        }
+
+        private void NavToDetailsView(Topic topic)
+        {
+            _issueDetailsViewModel.SelectedTopic = topic;
+            CurrentViewModel = _issueDetailsViewModel;
         }
 
     }

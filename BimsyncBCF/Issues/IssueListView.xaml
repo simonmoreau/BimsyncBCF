@@ -8,15 +8,20 @@
              xmlns:Issues="clr-namespace:BimsyncBCF.Issues"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.DataContext>
-        <Issues:IssueListViewModel/>
-    </UserControl.DataContext>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <ei:CallMethodAction TargetObject="{Binding}" MethodName="LoadTopics" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <DataGrid ItemsSource="{Binding Issues}"/>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Topic : "/>
+            <TextBlock Text="{Binding SelectedTopic.guid}"/>
+        </StackPanel>
+        <DataGrid 
+            ItemsSource="{Binding Issues}"
+            SelectedItem="{Binding SelectedTopic}"
+            Margin="0,30,0,0">
+        </DataGrid>
     </Grid>
 </UserControl>

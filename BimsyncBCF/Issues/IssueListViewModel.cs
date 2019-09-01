@@ -14,6 +14,7 @@ namespace BimsyncBCF.Issues
     {
         private BimsyncBCFService _BCFService = new BimsyncBCFService();
         private ObservableCollection<Topic> _issues;
+        private Topic _selectedTopic;
 
         public IssueListViewModel()
         {
@@ -34,5 +35,17 @@ namespace BimsyncBCF.Issues
             set { SetProperty(ref _issues, value); }
         }
 
+        public Topic SelectedTopic
+        {
+            get { return _selectedTopic; }
+            set  {SetProperty(ref _selectedTopic, value); OnSelectTopic(); }
+        }
+
+        public event Action<Topic> TopicSelected = delegate { };
+
+        private void OnSelectTopic()
+        {
+            TopicSelected(_selectedTopic);
+        }
     }
 }

@@ -3,10 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BimsyncBCF.Issues"
+             xmlns:Issues="clr-namespace:BimsyncBCF.Issues"            
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="{Binding SelectedTopic.title}"/>
+            <TextBlock Text="{Binding SelectedTopic.assigned_to}"/>
+            <TextBlock Text="{Binding SelectedTopic.description}"/>
+            <TextBlock Text="{Binding SelectedTopic.creation_date}"/>
+        </StackPanel>
     </Grid>
 </UserControl>
