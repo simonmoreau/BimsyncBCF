@@ -8,20 +8,47 @@
              xmlns:Issues="clr-namespace:BimsyncBCF.Issues"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <DataTemplate x:Key="IssueTemplate">
+            <Border BorderThickness="2" BorderBrush="#eef0f1">
+                <Grid Margin="5,5,5,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding title}" FontWeight="Bold"/>
+                        <TextBlock Grid.Column="1" Text="{Binding bimsync_issue_number}" FontStyle="Italic" Foreground="#c2c2c2"/>
+                    </Grid>
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding topic_status}" />
+                            <TextBlock Text="{Binding topic_type}" />
+                        </StackPanel>
+                        <TextBlock Text="{Binding creation_author}" />
+                        <TextBlock Text="{Binding assigned_to}" />
+                        <TextBlock Text="{Binding creation_date}" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <ei:CallMethodAction TargetObject="{Binding}" MethodName="LoadTopics" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Topic : "/>
-            <TextBlock Text="{Binding SelectedTopic.guid}"/>
-        </StackPanel>
-        <DataGrid 
-            ItemsSource="{Binding Issues}"
-            SelectedItem="{Binding SelectedTopic}"
-            Margin="0,30,0,0">
-        </DataGrid>
+        <ListBox ItemsSource="{Binding Issues}"
+                 ItemTemplate="{StaticResource IssueTemplate}"
+                 SelectedItem="{Binding SelectedTopic}"
+                 HorizontalContentAlignment="Stretch"/>
     </Grid>
 </UserControl>

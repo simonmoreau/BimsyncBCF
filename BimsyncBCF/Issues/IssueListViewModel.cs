@@ -25,7 +25,7 @@ namespace BimsyncBCF.Issues
             if (DesignerProperties.GetIsInDesignMode(
                 new System.Windows.DependencyObject())) return;
 
-            Issues = new ObservableCollection<Topic>(await _BCFService.GetTopicsAsync("b6392340-e5e4-430a-9732-eeb9e4d5732e"));
+            Issues = new ObservableCollection<Topic>(await _BCFService.GetTopicsAsync("665ed058-3bfb-436f-b17c-3d3bc82da309"));
 
         }
 
@@ -45,7 +45,11 @@ namespace BimsyncBCF.Issues
 
         private void OnSelectTopic()
         {
-            TopicSelected(_selectedTopic);
+            if (_selectedTopic != null)
+            {
+                TopicSelected(_selectedTopic);
+            }
+            _selectedTopic = null;
         }
     }
 }
