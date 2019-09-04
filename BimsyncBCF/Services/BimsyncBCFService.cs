@@ -18,6 +18,7 @@ namespace BimsyncBCF.Services
 
         public BimsyncBCFService()
         {
+
             client.BaseAddress = new Uri("https://bcf.bimsync.com/bcf/beta/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "jQg3g5knpDCjair");
