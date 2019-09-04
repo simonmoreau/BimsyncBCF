@@ -18,6 +18,22 @@ namespace BimsyncBCF.Services
 
         public BimsyncBCFService()
         {
+            NetworkCredential credentials = new NetworkCredential(
+userName: "smoreau",
+password: "1 Décembre 2018");
+            // First create a proxy object
+            var proxy = new WebProxy(
+                Address: new Uri($"http://proxymon.bouygues-immobilier.com:8080"),
+                    BypassOnLocal: false,
+                    BypassList: new string[0],
+                        Credentials: credentials
+                );
+            // Now create a client handler which uses that proxy
+            var httpClientHandler = new HttpClientHandler
+            {
+                Proxy = proxy,
+            };
+            client = new HttpClient(httpClientHandler, true);
 
             client.BaseAddress = new Uri("https://bcf.bimsync.com/bcf/beta/");
             client.DefaultRequestHeaders.Accept.Clear();

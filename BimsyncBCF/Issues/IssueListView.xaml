@@ -50,8 +50,8 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Requested by " Foreground="#777" />
-                        <TextBlock>
-                            <Hyperlink NavigateUri="http://www.google.co.in" >
+                        <TextBlock >
+                            <Hyperlink NavigateUri="http://www.google.co.in"  >
                                 <TextBlock Text="{Binding creation_author}"/>
                             </Hyperlink>
                         </TextBlock>
