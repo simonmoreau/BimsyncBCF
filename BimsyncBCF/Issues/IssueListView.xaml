@@ -9,8 +9,21 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="TextDecorations" Value="Underline" />
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="TextDecorations" Value="{x:Null}"/>
+            <Setter Property="Foreground" Value="#707984"/>
+        </Style>
+        <Style TargetType="Hyperlink">
+            <Setter Property="TextDecorations" Value="{x:Null}"/>
+        </Style>
+        
         <DataTemplate x:Key="IssueTemplate">
-            <Grid Margin="5,5,5,5">
+            <Grid Margin="10,5,10,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
@@ -24,16 +37,37 @@
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="{Binding title}" FontWeight="Bold" TextWrapping="Wrap"/>
-                    <TextBlock Grid.Column="1" Text="{Binding bimsync_issue_number}" FontStyle="Italic" Foreground="#c2c2c2"/>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1">
+                        <TextBlock Text="#"  FontStyle="Italic" Foreground="#c2c2c2"/>
+                        <TextBlock Text="{Binding bimsync_issue_number}" FontStyle="Italic" Foreground="#c2c2c2"/>
+                    </StackPanel>
                 </Grid>
                 <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding topic_status}" />
+                        <TextBlock Text=" - " />
                         <TextBlock Text="{Binding topic_type}" />
                     </StackPanel>
-                    <TextBlock Text="{Binding creation_author}" />
-                    <TextBlock Text="{Binding assigned_to}" />
-                    <TextBlock Text="{Binding creation_date}" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Requested by " Foreground="#777" />
+                        <TextBlock>
+                            <Hyperlink NavigateUri="http://www.google.co.in" >
+                                <TextBlock Text="{Binding creation_author}"/>
+                            </Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Assigned to " Foreground="#777"  />
+                        <TextBlock>
+                            <Hyperlink NavigateUri="http://www.google.co.in" >
+                                <TextBlock Text="{Binding assigned_to}"/>
+                            </Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Updated on " Foreground="#777" />
+                        <TextBlock Text="{Binding creation_date}" Foreground="#777" />
+                    </StackPanel>
                 </StackPanel>
             </Grid>
         </DataTemplate>
