@@ -15,6 +15,7 @@ namespace BimsyncBCF.Issues
         private BimsyncBCFService _BCFService = new BimsyncBCFService();
         private ObservableCollection<Topic> _issues;
         private Topic _selectedTopic;
+        private IssueBoard _selectedIssueBoard;
 
         public IssueListViewModel()
         {
@@ -24,9 +25,10 @@ namespace BimsyncBCF.Issues
         {
             if (DesignerProperties.GetIsInDesignMode(
                 new System.Windows.DependencyObject())) return;
-
-            Issues = new ObservableCollection<Topic>(await _BCFService.GetTopicsAsync("665ed058-3bfb-436f-b17c-3d3bc82da309"));
-
+            if (SelectedIssueBoard != null)
+            {
+                Issues = new ObservableCollection<Topic>(await _BCFService.GetTopicsAsync(SelectedIssueBoard.project_id));
+            }
         }
 
         public ObservableCollection<Topic> Issues
@@ -39,6 +41,12 @@ namespace BimsyncBCF.Issues
         {
             get { return _selectedTopic; }
             set  {SetProperty(ref _selectedTopic, value); OnSelectTopic(); }
+        }
+
+        public IssueBoard SelectedIssueBoard
+        {
+            get { return _selectedIssueBoard; }
+            set { SetProperty(ref _selectedIssueBoard, value); LoadTopics(); }
         }
 
         public event Action<Topic> TopicSelected = delegate { };

@@ -33,7 +33,7 @@ password: "1 Décembre 2018");
             {
                 Proxy = proxy,
             };
-            client = new HttpClient(httpClientHandler, true);
+            // client = new HttpClient(httpClientHandler, true);
 
             client.BaseAddress = new Uri("https://bcf.bimsync.com/bcf/beta/");
             client.DefaultRequestHeaders.Accept.Clear();
