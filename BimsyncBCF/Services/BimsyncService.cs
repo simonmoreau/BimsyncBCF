@@ -16,7 +16,7 @@ namespace BimsyncBCF.Services
         {
             client.BaseAddress = new Uri("https://api.bimsync.com/v2/");
             client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "iV1B6VM6hsY2snJovlokBa");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "lmV6PldwqJC2fAsJjuALdQ");
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         }
 

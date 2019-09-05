@@ -29,9 +29,9 @@ namespace BimsyncBCF
 
         public MainWindowsViewModel()
         {
-            NavCommand = new RelayCommand<string>(OnNav);
             CurrentViewModel = _issueListViewModel;
             _issueListViewModel.TopicSelected += NavToDetailsView;
+            _issueDetailsViewModel.BackToListView += NavToListView;
         }
 
         public BindableBase CurrentViewModel
@@ -65,22 +65,7 @@ namespace BimsyncBCF
             {
                 SetProperty(ref _selectedIssueBoard, value);
                 _issueListViewModel.SelectedIssueBoard = _selectedIssueBoard;
-            }
-        }
-
-        public RelayCommand<string> NavCommand { get; private set; }
-
-        private void OnNav(string destination)
-        {
-            switch (destination)
-            {
-                case "issueList":
-                    CurrentViewModel = _issueListViewModel;
-                    break;
-                case "issueDetails":
-                default:
-                    CurrentViewModel = _issueDetailsViewModel;
-                    break;
+                if (CurrentViewModel != _issueListViewModel) { CurrentViewModel = _issueListViewModel; }
             }
         }
 
@@ -88,6 +73,11 @@ namespace BimsyncBCF
         {
             _issueDetailsViewModel.SelectedTopic = topic;
             CurrentViewModel = _issueDetailsViewModel;
+        }
+
+        private void NavToListView()
+        {
+            CurrentViewModel = _issueListViewModel;
         }
 
         public async void LoadProjects()
@@ -104,9 +94,13 @@ namespace BimsyncBCF
         {
             if (DesignerProperties.GetIsInDesignMode(
                 new System.Windows.DependencyObject())) return;
+            if (SelectedProject != null)
+            {
+                IssueBoards = new ObservableCollection<IssueBoard>(await _BCFService.GetIssueBoardsAsync(SelectedProject.id));
+                SelectedIssueBoard = IssueBoards.FirstOrDefault();
+            }
 
-            IssueBoards = new ObservableCollection<IssueBoard>(await _BCFService.GetIssueBoardsAsync(SelectedProject.id));
-            SelectedIssueBoard = IssueBoards.FirstOrDefault();
+            
             // _issueListViewModel.SelectedIssueBoard = SelectedIssueBoard;
 
         }
