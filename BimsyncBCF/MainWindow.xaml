@@ -20,6 +20,38 @@
         <Style TargetType="{x:Type Window}">
             <Setter Property="FontFamily" Value="Arial" />
         </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid x:Name="grid">
+                            <Border x:Name="border" CornerRadius="3" BorderBrush="#ccc" BorderThickness="1">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" Margin="10,5,10,5">
+                                </ContentPresenter>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="grid" Value="#d8e1e8"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#adadad"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="grid" Value="#f7f7f8"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#adadad"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" TargetName="grid" Value="#d8e1e8"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#adadad"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid >
         <Grid.RowDefinitions>
@@ -28,11 +60,11 @@
         </Grid.RowDefinitions>
         <Grid x:Name="NavBar" Margin="10,10,10,10" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button Content="IssueList"
+            <Button Content="Back to issues"
                     Command="{Binding NavCommand}"
                     CommandParameter="issueList"
                     Grid.Column="0" />

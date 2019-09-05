@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <Style TargetType="TextBlock">
+        <Style TargetType="TextBlock" x:Key="HyperlinkText">
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="TextDecorations" Value="Underline" />
@@ -18,10 +18,10 @@
             <Setter Property="TextDecorations" Value="{x:Null}"/>
             <Setter Property="Foreground" Value="#707984"/>
         </Style>
-        <Style TargetType="Hyperlink">
+        <Style TargetType="Hyperlink" x:Key="Link">
             <Setter Property="TextDecorations" Value="{x:Null}"/>
         </Style>
-        
+
         <DataTemplate x:Key="IssueTemplate">
             <Grid Margin="10,5,10,5">
                 <Grid.ColumnDefinitions>
@@ -51,16 +51,16 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Requested by " Foreground="#777" />
                         <TextBlock >
-                            <Hyperlink NavigateUri="http://www.google.co.in"  >
-                                <TextBlock Text="{Binding creation_author}"/>
+                            <Hyperlink NavigateUri="http://www.google.co.in" Style="{StaticResource Link}" >
+                                <TextBlock Text="{Binding creation_author}" Style="{StaticResource HyperlinkText}"/>
                             </Hyperlink>
                         </TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Assigned to " Foreground="#777"  />
                         <TextBlock>
-                            <Hyperlink NavigateUri="http://www.google.co.in" >
-                                <TextBlock Text="{Binding assigned_to}"/>
+                            <Hyperlink NavigateUri="http://www.google.co.in" Style="{StaticResource Link}" >
+                                <TextBlock Text="{Binding assigned_to}" Style="{StaticResource HyperlinkText}"/>
                             </Hyperlink>
                         </TextBlock>
                     </StackPanel>
