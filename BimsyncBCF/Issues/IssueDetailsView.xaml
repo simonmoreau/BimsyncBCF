@@ -63,16 +63,16 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Requested by " Foreground="#777" />
                     <TextBlock >
-                            <Hyperlink NavigateUri="http://www.google.co.in" Style="{StaticResource Link}" >
-                                <TextBlock Text="{Binding SelectedTopic.creation_author}" Style="{StaticResource HyperlinkText}"/>
+                            <Hyperlink NavigateUri="http://www.google.co.in" >
+                                <TextBlock Text="{Binding SelectedTopic.creation_author}"/>
                             </Hyperlink>
                         </TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Assigned to " Foreground="#777"  />
                     <TextBlock>
-                            <Hyperlink NavigateUri="http://www.google.co.in" Style="{StaticResource Link}" >
-                                <TextBlock Text="{Binding SelectedTopic.assigned_to}" Style="{StaticResource HyperlinkText}"/>
+                            <Hyperlink NavigateUri="http://www.google.co.in" >
+                                <TextBlock Text="{Binding SelectedTopic.assigned_to}" />
                             </Hyperlink>
                         </TextBlock>
                 </StackPanel>
