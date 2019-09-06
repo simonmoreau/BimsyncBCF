@@ -44,8 +44,12 @@
                 </Grid>
                 <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0">
                     <StackPanel Orientation="Horizontal">
+                        <Ellipse Fill="#dd7e6b" Height="10" Width="10"/>
+                        <TextBlock Text=" " />
                         <TextBlock Text="{Binding topic_status}" />
-                        <TextBlock Text=" - " />
+                        <TextBlock Text=" " />
+                        <Ellipse Fill="#3c78d8" Height="10" Width="10"/>
+                        <TextBlock Text=" " />
                         <TextBlock Text="{Binding topic_type}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
