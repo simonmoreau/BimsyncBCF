@@ -24,11 +24,60 @@
                     Command="{Binding BackCommand}"
                     Grid.Column="0" />
         </Grid>
-        <StackPanel Orientation="Vertical" Margin="10,5,10,5" Grid.Row="1">
-            <TextBlock Text="{Binding SelectedTopic.title}"/>
-            <TextBlock Text="{Binding SelectedTopic.assigned_to}"/>
-            <TextBlock Text="{Binding SelectedTopic.description}"/>
-            <TextBlock Text="{Binding SelectedTopic.creation_date}"/>
-        </StackPanel>
+        <Grid Grid.Row="1" Margin="10,5,10,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="{Binding SelectedTopic.title}" Foreground="#676a6c" FontSize="15" Grid.Row="0" Margin="0,0,0,10" TextWrapping="Wrap"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <ComboBox >
+                    <ComboBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Fill="#dd7e6b" Height="10" Width="10"/>
+                            <TextBlock Text="  " />
+                            <TextBlock>Open</TextBlock>
+                        </StackPanel>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Fill="#e69138" Height="10" Width="10"/>
+                            <TextBlock Text="  " />
+                            <TextBlock>Current</TextBlock>
+                        </StackPanel>
+                    </ComboBoxItem>
+                    <ComboBoxItem IsSelected="True">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Fill="#6aa84f" Height="10" Width="10"/>
+                            <TextBlock Text="  " />
+                            <TextBlock>Closed</TextBlock>
+                        </StackPanel>
+                    </ComboBoxItem>
+                </ComboBox>
+                <TextBlock Text=" " />
+                <ComboBox />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="2">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Requested by " Foreground="#777" />
+                    <TextBlock >
+                            <Hyperlink NavigateUri="http://www.google.co.in" Style="{StaticResource Link}" >
+                                <TextBlock Text="{Binding SelectedTopic.creation_author}" Style="{StaticResource HyperlinkText}"/>
+                            </Hyperlink>
+                        </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Assigned to " Foreground="#777"  />
+                    <TextBlock>
+                            <Hyperlink NavigateUri="http://www.google.co.in" Style="{StaticResource Link}" >
+                                <TextBlock Text="{Binding SelectedTopic.assigned_to}" Style="{StaticResource HyperlinkText}"/>
+                            </Hyperlink>
+                        </TextBlock>
+                </StackPanel>
+            </StackPanel>
+            <TextBlock Text="{Binding SelectedTopic.description}" Grid.Row="3"/>
+        </Grid>
     </Grid>
 </UserControl>
