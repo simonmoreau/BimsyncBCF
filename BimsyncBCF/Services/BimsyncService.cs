@@ -8,16 +8,16 @@ using BimsyncBCF.Models.Bimsync;
 
 namespace BimsyncBCF.Services
 {
-    class BimsyncService
+    class BimsyncService : IBimsyncService
     {
         private HttpClient _client;
 
-        public BimsyncService(HttpClient client)
+        public BimsyncService(HttpClientHandler httpClientHandler)
         {
-            _client = client;
+            _client = new HttpClient(httpClientHandler,true);
             _client.BaseAddress = new Uri("https://api.bimsync.com/v2/");
             _client.DefaultRequestHeaders.Accept.Clear();
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "6VZqTGrYD4A8kApNTJ2uB4");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "cGv3UApXZmZDd0THnYa3Ms");
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         }
 

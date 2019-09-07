@@ -13,6 +13,10 @@
     <SolidColorBrush x:Key="Item.Border" Color="#ccc"/>
     <SolidColorBrush x:Key="Item.Text" Color="#262626"/>
 
+    <Style TargetType="{x:Type Window}">
+        <Setter Property="FontFamily" Value="Arial" />
+    </Style>
+
     <Style TargetType="{x:Type Button}">
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -93,6 +97,7 @@
         <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
         <Setter Property="MinWidth" Value="150"/>
         <Setter Property="MinHeight" Value="35"/>
+        <Setter Property="MaxHeight" Value="35"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
@@ -129,7 +134,7 @@
                         <Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" 
                                    AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
                             <Grid  Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
-                                <Border  x:Name="DropDownBorder" CornerRadius="3" BorderBrush="{StaticResource Item.Border}" BorderThickness="1" Background="White" />
+                                <Border  x:Name="DropDownBorder" CornerRadius="3" BorderBrush="{StaticResource Item.Border}" BorderThickness="1" Background="{StaticResource Item.Background}" />
                                 <ScrollViewer Margin="1,1,1,1" SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
                                 </ScrollViewer>

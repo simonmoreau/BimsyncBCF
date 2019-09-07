@@ -11,34 +11,24 @@ using BimsyncBCF.Services;
 using Unity;
 using System.Net.Http;
 
-namespace BimsyncBCF
+namespace BimsyncBCF.MainWindows
 {
     class MainWindowsViewModel : BindableBase
     {
         private Issues.IssueListViewModel _issueListViewModel;
         private Issues.IssueDetailsViewModel _issueDetailsViewModel = new Issues.IssueDetailsViewModel();
+        private HeaderViewModel _headerViewModel = new HeaderViewModel();
 
         private BindableBase _currentViewModel;
-
-        private ObservableCollection<Project> _projects;
-        private Project _selectedProject;
-
-        private ObservableCollection<IssueBoard> _issueBoards;
-        private IssueBoard _selectedIssueBoard;
-
-        private BimsyncService _bimsyncService;
-        private BimsyncBCFService _BCFService;
+        
 
         public MainWindowsViewModel()
         {
-            HttpClient httpClient1 = new HttpClient();
-            _bimsyncService = new BimsyncService(httpClient1);
-
-            HttpClient httpClient2 = new HttpClient();
-            _BCFService = new BimsyncBCFService(httpClient2);
-
             _issueListViewModel = ContainerHelper.Container.Resolve<Issues.IssueListViewModel>();
             CurrentViewModel = _issueListViewModel;
+            
+
+            _headerViewModel.IssueBoardSelected += SelectIssueBoard;
             _issueListViewModel.TopicSelected += NavToDetailsView;
             _issueDetailsViewModel.BackToListView += NavToListView;
         }
@@ -49,33 +39,10 @@ namespace BimsyncBCF
             set { SetProperty(ref _currentViewModel, value); }
         }
 
-        public ObservableCollection<Project> Projects
+        public HeaderViewModel HeaderViewModel
         {
-            get { return _projects; }
-            set { SetProperty(ref _projects, value); }
-        }
-
-        public Project SelectedProject
-        {
-            get { return _selectedProject; }
-            set { SetProperty(ref _selectedProject, value); LoadBoards(); }
-        }
-
-        public ObservableCollection<IssueBoard> IssueBoards
-        {
-            get { return _issueBoards; }
-            set { SetProperty(ref _issueBoards, value); }
-        }
-
-        public IssueBoard SelectedIssueBoard
-        {
-            get { return _selectedIssueBoard; }
-            set
-            {
-                SetProperty(ref _selectedIssueBoard, value);
-                _issueListViewModel.SelectedIssueBoard = _selectedIssueBoard;
-                if (CurrentViewModel != _issueListViewModel) { CurrentViewModel = _issueListViewModel; }
-            }
+            get { return _headerViewModel; }
+            set { SetProperty(ref _headerViewModel, value); }
         }
 
         private void NavToDetailsView(Topic topic)
@@ -89,29 +56,10 @@ namespace BimsyncBCF
             CurrentViewModel = _issueListViewModel;
         }
 
-        public async void LoadProjects()
+        private void SelectIssueBoard(IssueBoard selectedIssueBoard)
         {
-            if (DesignerProperties.GetIsInDesignMode(
-                new System.Windows.DependencyObject())) return;
-
-            Projects = new ObservableCollection<Project>(await _bimsyncService.GetProjects());
-            SelectedProject = Projects.FirstOrDefault();
-
-        }
-
-        public async void LoadBoards()
-        {
-            if (DesignerProperties.GetIsInDesignMode(
-                new System.Windows.DependencyObject())) return;
-            if (SelectedProject != null)
-            {
-                IssueBoards = new ObservableCollection<IssueBoard>(await _BCFService.GetIssueBoardsAsync(SelectedProject.id));
-                SelectedIssueBoard = IssueBoards.FirstOrDefault();
-            }
-
-            
-            // _issueListViewModel.SelectedIssueBoard = SelectedIssueBoard;
-
+            _issueListViewModel.SelectedIssueBoard = selectedIssueBoard;
+            if (CurrentViewModel != _issueListViewModel) { CurrentViewModel = _issueListViewModel; }
         }
 
     }
