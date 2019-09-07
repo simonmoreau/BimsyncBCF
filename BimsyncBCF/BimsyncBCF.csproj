@@ -46,6 +46,9 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -58,6 +61,12 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Unity.Abstractions, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.1\lib\net46\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.1\lib\net46\Unity.Container.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -68,6 +77,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BindableBase.cs" />
+    <Compile Include="ContainerHelper.cs" />
     <Compile Include="Issues\IssueDetailsView.xaml.cs">
       <DependentUpon>IssueDetailsView.xaml</DependentUpon>
     </Compile>
@@ -76,10 +86,12 @@
       <DependentUpon>IssueListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Issues\IssueListViewModel.cs" />
-    <Compile Include="MainWindowsViewModel.cs" />
+    <Compile Include="MainWindows\MainWindowsViewModel.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="Services\BimsyncBCFService.cs" />
     <Compile Include="Services\BimsyncService.cs" />
+    <Compile Include="Services\IBCFService.cs" />
+    <Compile Include="Services\IBimsyncService.cs" />
     <Page Include="Issues\IssueDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -88,7 +100,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="MainWindows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -96,7 +108,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="MainWindows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>

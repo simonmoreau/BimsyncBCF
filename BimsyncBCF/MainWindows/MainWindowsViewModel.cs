@@ -8,12 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BimsyncBCF.Services;
+using Unity;
+using System.Net.Http;
 
 namespace BimsyncBCF
 {
     class MainWindowsViewModel : BindableBase
     {
-        private Issues.IssueListViewModel _issueListViewModel = new Issues.IssueListViewModel();
+        private Issues.IssueListViewModel _issueListViewModel;
         private Issues.IssueDetailsViewModel _issueDetailsViewModel = new Issues.IssueDetailsViewModel();
 
         private BindableBase _currentViewModel;
@@ -24,11 +26,18 @@ namespace BimsyncBCF
         private ObservableCollection<IssueBoard> _issueBoards;
         private IssueBoard _selectedIssueBoard;
 
-        private BimsyncService _bimsyncService = new BimsyncService();
-        private BimsyncBCFService _BCFService = new BimsyncBCFService();
+        private BimsyncService _bimsyncService;
+        private BimsyncBCFService _BCFService;
 
         public MainWindowsViewModel()
         {
+            HttpClient httpClient1 = new HttpClient();
+            _bimsyncService = new BimsyncService(httpClient1);
+
+            HttpClient httpClient2 = new HttpClient();
+            _BCFService = new BimsyncBCFService(httpClient2);
+
+            _issueListViewModel = ContainerHelper.Container.Resolve<Issues.IssueListViewModel>();
             CurrentViewModel = _issueListViewModel;
             _issueListViewModel.TopicSelected += NavToDetailsView;
             _issueDetailsViewModel.BackToListView += NavToListView;

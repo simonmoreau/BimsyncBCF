@@ -12,13 +12,14 @@ namespace BimsyncBCF.Issues
 {
     public class IssueListViewModel : BindableBase
     {
-        private BimsyncBCFService _BCFService = new BimsyncBCFService();
+        private IBCFService _BCFService;
         private ObservableCollection<Topic> _issues;
         private Topic _selectedTopic;
         private IssueBoard _selectedIssueBoard;
 
-        public IssueListViewModel()
+        public IssueListViewModel(IBCFService BCFService)
         {
+            _BCFService = BCFService;
         }
 
         public async void LoadTopics()

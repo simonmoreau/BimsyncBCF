@@ -12,12 +12,14 @@ using BimsyncBCF.Models.BCF;
 
 namespace BimsyncBCF.Services
 {
-    class BimsyncBCFService
+    class BimsyncBCFService : IBCFService
     {
-        private HttpClient client = new HttpClient();
+        private HttpClient _client;
 
-        public BimsyncBCFService()
+        public BimsyncBCFService(HttpClient client)
         {
+            _client = client;
+
             NetworkCredential credentials = new NetworkCredential(
 userName: "smoreau",
 password: "1 Décembre 2018");
@@ -35,9 +37,11 @@ password: "1 Décembre 2018");
             };
             // client = new HttpClient(httpClientHandler, true);
 
-            client.BaseAddress = new Uri("https://bcf.bimsync.com/bcf/beta/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "jQg3g5knpDCjair");
+            
+
+            _client.BaseAddress = new Uri("https://bcf.bimsync.com/bcf/beta/");
+            _client.DefaultRequestHeaders.Accept.Clear();
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "jQg3g5knpDCjair");
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         }
 
@@ -46,7 +50,7 @@ password: "1 Décembre 2018");
             List<IssueBoard> issueBoards = new List<IssueBoard>();
             // string path = String.Format("projects", bimsync_project_id);
             string path = String.Format("projects?bimsync_project_id={0}", bimsync_project_id);
-            HttpResponseMessage response = await client.GetAsync(path);
+            HttpResponseMessage response = await _client.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
                 issueBoards = await response.Content.ReadAsAsync<List<IssueBoard>>();
@@ -58,7 +62,7 @@ password: "1 Décembre 2018");
         {
             List<Topic> topics = new List<Topic>();
             string path = String.Format("projects/{0}/topics", project_id);
-            HttpResponseMessage response = await client.GetAsync(path);
+            HttpResponseMessage response = await _client.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
                 topics = await response.Content.ReadAsAsync<List<Topic>>();
@@ -66,13 +70,11 @@ password: "1 Décembre 2018");
             return topics;
         }
 
-
-
         public async Task<List<Comment>> GetComments(string project_id, string topic_guid)
         {
             List<Comment> comments = new List<Comment>();
             string path = String.Format("projects/{0}/topics/{1}/comments", project_id, topic_guid);
-            HttpResponseMessage response = await client.GetAsync(path);
+            HttpResponseMessage response = await _client.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
                 comments = await response.Content.ReadAsAsync<List<Comment>>();
@@ -85,7 +87,7 @@ password: "1 Décembre 2018");
         {
             List<Viewpoint> viewpoints = new List<Viewpoint>();
             string path = String.Format("projects/{0}/topics/{1}/viewpoints", project_id, topic_guid);
-            HttpResponseMessage response = await client.GetAsync(path);
+            HttpResponseMessage response = await _client.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
                 viewpoints = await response.Content.ReadAsAsync<List<Viewpoint>>();
@@ -98,7 +100,7 @@ password: "1 Décembre 2018");
         {
             Viewpoint viewpoint = null;
             string path = String.Format("projects/{0}/topics/{1}/viewpoints/{2}", project_id, topic_guid, viewpoint_guid);
-            HttpResponseMessage response = await client.GetAsync(path);
+            HttpResponseMessage response = await _client.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
                 viewpoint = await response.Content.ReadAsAsync<Viewpoint>();
@@ -111,7 +113,7 @@ password: "1 Décembre 2018");
         {
             BitmapImage image = new BitmapImage();
             string path = String.Format("projects/{0}/topics/{1}/viewpoints/{2}/snapshot", project_id, topic_guid, viewpoint_guid);
-            HttpResponseMessage response = await client.GetAsync(path);
+            HttpResponseMessage response = await _client.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
                 using (Stream inputStream = await response.Content.ReadAsStreamAsync())

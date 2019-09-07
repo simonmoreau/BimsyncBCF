@@ -10,13 +10,14 @@ namespace BimsyncBCF.Services
 {
     class BimsyncService
     {
-        private HttpClient client = new HttpClient();
+        private HttpClient _client;
 
-        public BimsyncService()
+        public BimsyncService(HttpClient client)
         {
-            client.BaseAddress = new Uri("https://api.bimsync.com/v2/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "lmV6PldwqJC2fAsJjuALdQ");
+            _client = client;
+            _client.BaseAddress = new Uri("https://api.bimsync.com/v2/");
+            _client.DefaultRequestHeaders.Accept.Clear();
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "6VZqTGrYD4A8kApNTJ2uB4");
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         }
 
@@ -25,7 +26,7 @@ namespace BimsyncBCF.Services
             List<Project> Projects = new List<Project>();
             // string path = String.Format("projects", bimsync_project_id);
             string path = String.Format("projects");
-            HttpResponseMessage response = await client.GetAsync(path);
+            HttpResponseMessage response = await _client.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
                 Projects = await response.Content.ReadAsAsync<List<Project>>();
