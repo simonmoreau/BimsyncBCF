@@ -23,12 +23,10 @@ namespace BimsyncBCF.MainWindows
         private IBimsyncService _bimsyncService;
         private IBCFService _BCFService;
 
-        public HeaderViewModel()
+        public HeaderViewModel(IBimsyncService bimsyncService, IBCFService bCFService)
         {
-            HttpClientHandler httpClientHandler = new HttpClientHandler();
-
-            _bimsyncService = new BimsyncService(httpClientHandler);
-            _BCFService = new BimsyncBCFService(httpClientHandler);
+            _bimsyncService = bimsyncService;
+            _BCFService = bCFService;
         }
 
         public ObservableCollection<Project> Projects

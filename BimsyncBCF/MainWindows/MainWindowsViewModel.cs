@@ -16,8 +16,8 @@ namespace BimsyncBCF.MainWindows
     class MainWindowsViewModel : BindableBase
     {
         private Issues.IssueListViewModel _issueListViewModel;
+        private HeaderViewModel _headerViewModel;
         private Issues.IssueDetailsViewModel _issueDetailsViewModel = new Issues.IssueDetailsViewModel();
-        private HeaderViewModel _headerViewModel = new HeaderViewModel();
 
         private BindableBase _currentViewModel;
         
@@ -25,6 +25,13 @@ namespace BimsyncBCF.MainWindows
         public MainWindowsViewModel()
         {
             _issueListViewModel = ContainerHelper.Container.Resolve<Issues.IssueListViewModel>();
+
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+
+            _headerViewModel = new HeaderViewModel(
+            new BimsyncService(httpClientHandler),
+            new BimsyncBCFService(httpClientHandler)
+            );
             CurrentViewModel = _issueListViewModel;
             
 
